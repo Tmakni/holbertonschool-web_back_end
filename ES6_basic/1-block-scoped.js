@@ -1,6 +1,6 @@
 export default function taskBlock(trueOrFalse) {
-  const task = false;
-  const task2 = true;
+  let task = trueOrFalse;
+  let task2 = !trueOrFalse;
 
   return [task, task2];
-  }
+}
