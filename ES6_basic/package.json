@@ -19,7 +19,10 @@
   },
   "homepage": "https://github.com/Tmakni/holbertonschool-web_back_end#readme",
   "devDependencies": {
-    "eslint": "^9.23.0"
+    "@eslint/js": "^9.23.0",
+    "eslint": "^9.23.0",
+    "eslint-plugin-react": "^7.37.4",
+    "globals": "^16.0.0"
   },
   "type": "module"
 }
