@@ -31,5 +31,5 @@
     "globals": "^16.0.0",
     "jest": "^29.7.0"
   },
-  "type": "commonjs"
+  "type": "module"
 }
