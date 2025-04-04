@@ -1,0 +1,14 @@
+{
+  "name": "es6_promise",
+  "version": "1.0.0",
+  "description": "readme",
+  "type": "module",
+  "main": "0-promise.js",
+  "scripts": {
+    "dev": "node 3-main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
