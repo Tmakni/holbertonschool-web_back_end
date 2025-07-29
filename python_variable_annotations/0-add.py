@@ -5,4 +5,7 @@ commentaire
 
 
 def add(a: float, b: float) -> float:
+    """
+    commentaire
+    """
     return a + b
