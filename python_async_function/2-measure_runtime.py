@@ -1,20 +1,22 @@
 #!/usr/bin/env python3
+"""Module that defines measure_time to evaluate average"""
+
+
 import time
 import asyncio
-"""Module containing wait_random, an async coroutine that ret"""
-
 
 wait_n = __import__('1-concurrent_coroutines').wait_n
 
 
 def measure_time(n: int, max_delay: int) -> float:
-    """Waits asynchronously for a random delay and returns it.
+    """Measure total execution time for wait_n and return
 
     Args:
-        max_delay (int): The maximum delay in seconds. Defaults to 10.
+        n (int): Number of coroutines to run.
+        max_delay (int): Maximum delay for each coroutine.
 
     Returns:
-        float: The random delay actually waited.
+        float: Average execution time per coroutine.
     """
     start = time.time()
     asyncio.run(wait_n(n, max_delay))

@@ -1,26 +1,28 @@
 #!/usr/bin/env python3
+"""Module defining wait_n, which runs wait_random concurrently"""
+
+
 import asyncio
 from typing import List
-"""Module containing wait_random, an async coroutine that ret"""
 
 
 wait_random = __import__('0-basic_async_syntax').wait_random
 
 
 async def wait_n(n: int, max_delay: int) -> List[float]:
-    """Waits asynchronously for a random delay and returns it.
+    """Run wait_random n times concurrently and return the list
 
     Args:
-        max_delay (int): The maximum delay in seconds. Defaults to 10.
+        n (int): Number of times to spawn wait_random.
+        max_delay (int): Maximum delay passed to each wait_random.
 
     Returns:
-        float: The random delay actually waited.
+        List[float]: List of delays, sorted in order of completion.
     """
-    delays = []
     tasks = [asyncio.create_task(wait_random(max_delay)) for _ in range(n)]
+    delays = []
 
     for task in asyncio.as_completed(tasks):
-        delay = await task
-        delays.append(delay)
+        delays.append(await task)
 
     return delays
