@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
-import asyncio
-"""Module containing wait_random, an async coroutine that ret"""
+"""Module that defines task_wait_random to return"""
 
+import asyncio
 
 wait_random = __import__('0-basic_async_syntax').wait_random
 
 
 def task_wait_random(max_delay: int) -> asyncio.Task:
-    """Waits asynchronously for a random delay and returns it.
+    """Return an asyncio.Task for wait_random with
 
     Args:
-        max_delay (int): The maximum delay in seconds. Defaults to 10.
+        max_delay (int): The maximum delay in seconds to
 
     Returns:
-        float: The random delay actually waited.
+        asyncio.Task: The asyncio Task object that
     """
     return asyncio.create_task(wait_random(max_delay))
