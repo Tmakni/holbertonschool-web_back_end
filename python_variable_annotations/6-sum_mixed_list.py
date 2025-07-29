@@ -2,13 +2,13 @@
 """
 commentaire
 """
-from typing import list
+from typing import List
 """
 commentaire
 """
 
 
-def sum_mixed_list(mxd_list: list[int, float]) -> float:
+def sum_mixed_list(mxd_list: List[int, float]) -> float:
     """
     commentaire
     """
