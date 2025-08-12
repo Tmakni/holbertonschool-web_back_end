@@ -1,0 +1,3 @@
+// my comment
+
+db.school.dell({name: "Holberton school"})
