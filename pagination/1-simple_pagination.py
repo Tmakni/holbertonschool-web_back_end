@@ -22,9 +22,15 @@ class Server:
     DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
+        """
+        fonction
+        """
         self.__dataset = None
 
     def dataset(self) -> List[List]:
+        """
+        fonction dataset
+        """
         if self.__dataset is None:
             csv_path = Path(__file__).with_name(self.DATA_FILE)
             with csv_path.open(encoding="utf-8", newline="") as f:
