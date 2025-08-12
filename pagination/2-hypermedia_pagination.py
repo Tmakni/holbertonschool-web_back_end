@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-
 """
 fonction index range
 """
+
 
 import csv
 import math
@@ -50,7 +50,7 @@ class Server:
         start, end = index_range(page, page_size)
         return data[start:end]
 
-    def get_hyper (self, page: int = 1, page_size: int = 10) -> dict:
+    def get_hyper(self, page: int = 1, page_size: int = 10) -> dict:
         assert isinstance(page, int) and page > 0
         assert isinstance(page_size, int) and page_size > 0
         page_data = self.get_page(page, page_size)
