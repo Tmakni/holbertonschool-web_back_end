@@ -1,7 +1,8 @@
 import { error } from "console";
 
 export default function divideFunction(numerator, denominator) {
-    if (denominator === 0)
+    if (denominator === 0) {
         throw new Error('cannot divide by 0');
-            return numerator / denominator
+    }
+    return numerator / denominator;
 }
