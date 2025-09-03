@@ -1,3 +1,4 @@
+
 const fs = require('fs');
 
 function countStudents(path) {
@@ -20,30 +21,34 @@ function countStudents(path) {
           return;
         }
 
-        const [, ...rows] = lines;
+        const rows = lines.slice(1);
 
-        const students = rows
-          .map((line) => line.split(',').map((c) => c.trim()))
-          .filter((cols) => cols.length >= 4);
+        const groups = {};
+        let total = 0;
 
-        console.log(`Number of students: ${students.length}`);
+        for (const line of rows) {
+          const cols = line.split(',').map((c) => c.trim());
+          if (cols.length < 4) continue;
 
-        const groups = students.reduce((acc, cols) => {
           const firstName = cols[0];
           const field = cols[3];
-          if (!acc[field]) acc[field] = [];
-          acc[field].push(firstName);
-          return acc;
-        }, {});
 
-        for (const field of Object.keys(groups).sort()) {
-          console.log(
-            `Number of students in ${field}: ${groups[field].length}. List: ${groups[field].join(', ')}`
-          );
+          if (!groups[field]) groups[field] = [];
+          groups[field].push(firstName);
+          total += 1;
         }
 
+        console.log(`Number of students: ${total}`);
+
+        Object.keys(groups).forEach((field) => {
+          const list = groups[field].join(', ');
+          console.log(
+            `Number of students in ${field}: ${groups[field].length}. List: ${list}`
+          );
+        });
+
         resolve();
-      } catch {
+      } catch (_e) {
         reject(new Error('Cannot load the database'));
       }
     });
