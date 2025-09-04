@@ -18,6 +18,7 @@ async function countStudents(path) {
 
       totalStudents += 1;
     }
+
     console.log(`Number of students: ${totalStudents}`);
     let output = '';
     for (const [field, names] of Object.entries(studentsByField)) {
