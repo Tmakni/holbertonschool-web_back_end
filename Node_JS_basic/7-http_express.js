@@ -5,7 +5,6 @@ const fs = require('fs');
 const app = express();
 const databaseFile = process.argv[2];
 
-// Construit le rapport en TEXTE (Promise<string>)
 function buildStudentsReport(path) {
   return new Promise((resolve, reject) => {
     if (!path) {
@@ -38,6 +37,7 @@ function buildStudentsReport(path) {
         if (cols.length >= 4) {
           const firstName = cols[0];
           const field = cols[3];
+
           if (firstName && field) {
             if (!groups[field]) {
               groups[field] = [];
@@ -49,13 +49,14 @@ function buildStudentsReport(path) {
       });
 
       const out = [`Number of students: ${total}`];
+
       Object.keys(groups)
         .sort()
-        .forEach((field) => {
-          const names = groups[field];
-          out.push(
-            `Number of students in ${field}: ${names.length}. List: ${names.join(', ')}`
-          );
+        .forEach((dept) => {
+          const names = groups[dept];
+          const list = names.join(', ');
+          const line = `Number of students in ${dept}: ${names.length}. List: ${list}`;
+          out.push(line);
         });
 
       resolve(out.join('\n'));
@@ -82,4 +83,5 @@ app.get('/students', (_req, res) => {
 });
 
 app.listen(1245);
+
 module.exports = app;
