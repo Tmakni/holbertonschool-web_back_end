@@ -1,3 +1,4 @@
+// 5-http.js (ou le nom attendu par ta task)
 const http = require('http');
 const fs = require('fs');
 
@@ -18,8 +19,8 @@ function buildStudentsReport(filePath) {
 
       const lines = data
         .split('\n')
-        .map((l) => l.trim())
-        .filter((l) => l !== '');
+        .map((line) => line.trim())
+        .filter((line) => line !== '');
 
       if (lines.length <= 1) {
         resolve('Number of students: 0');
@@ -28,40 +29,51 @@ function buildStudentsReport(filePath) {
 
       const rows = lines.slice(1);
 
-      const groups = {};
+      const groups = {}; // { CS: ['...'], SWE: ['...'] }
       let total = 0;
 
-      for (const line of rows) {
-        const cols = line.split(',').map((c) => c.trim());
-        if (cols.length < 4) continue;
-        const firstName = cols[0];
-        const field = cols[3];
-        if (!field || !firstName) continue;
+      rows.forEach((row) => {
+        const cols = row.split(',').map((c) => c.trim());
+        if (cols.length >= 4) {
+          const firstName = cols[0];
+          const field = cols[3];
 
-        if (!groups[field]) groups[field] = [];
-        groups[field].push(firstName);
-        total += 1;
-      }
+          if (firstName && field) {
+            if (!groups[field]) {
+              groups[field] = [];
+            }
+            groups[field].push(firstName);
+            total += 1;
+          }
+        }
+      });
 
       const out = [];
       out.push(`Number of students: ${total}`);
-      for (const field of Object.keys(groups).sort()) {
-        out.push(
-          `Number of students in ${field}: ${groups[field].length}. List: ${groups[field].join(', ')}`
-        );
-      }
+
+      // éviter le no-shadow avec 'field' déjà utilisé plus haut
+      Object.keys(groups).sort().forEach((dept) => {
+        const names = groups[dept];
+        const listStr = names.join(', ');
+        out.push(`Number of students in ${dept}: ${names.length}. List: ${listStr}`);
+      });
+
       resolve(out.join('\n'));
     });
   });
 }
 
 const app = http.createServer((req, res) => {
-  res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
 
   if (req.url === '/') {
+    res.statusCode = 200;
     res.end('Hello Holberton School!');
-  } else if (req.url === '/students') {
+    return;
+  }
+
+  if (req.url === '/students') {
+    res.statusCode = 200;
     buildStudentsReport(DB_PATH)
       .then((report) => {
         res.end(`This is the list of our students\n${report}`);
@@ -69,11 +81,13 @@ const app = http.createServer((req, res) => {
       .catch(() => {
         res.end('This is the list of our students\nCannot load the database');
       });
-  } else {
-    res.statusCode = 404;
-    res.end('Not found');
+    return;
   }
+
+  res.statusCode = 404;
+  res.end('Not found');
 });
 
 app.listen(1245);
+
 module.exports = app;
