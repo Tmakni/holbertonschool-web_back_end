@@ -1,3 +1,4 @@
+// 1-stdin.js
 const readline = require('readline');
 
 console.log('Welcome to Holberton School, what is your name?');
@@ -14,4 +15,9 @@ rl.on('line', (line) => {
 
 rl.on('close', () => {
   console.log('This important software is now closing');
+});
+
+rl.on('SIGINT', () => {
+  console.log('This important software is now closing');
+  process.exit(0);
 });
