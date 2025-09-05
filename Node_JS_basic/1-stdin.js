@@ -7,20 +7,16 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-const isTTY = process.stdin.isTTY;
-
 rl.on('line', (line) => {
   console.log(`Your name is: ${line}`);
-  if (isTTY) {
-    process.exit(0);
-  }
+  rl.close();
 });
 
-process.stdin.on('end', () => {
+rl.on('close', () => {
   console.log('This important software is now closing');
 });
 
-process.on('SIGINT', () => {
+rl.on('SIGINT', () => {
   console.log('This important software is now closing');
   process.exit(0);
 });
