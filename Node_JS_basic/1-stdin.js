@@ -1,4 +1,3 @@
-// 1-stdin.js
 const readline = require('readline');
 
 console.log('Welcome to Holberton School, what is your name?');
@@ -8,16 +7,20 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
+const isTTY = process.stdin.isTTY;
+
 rl.on('line', (line) => {
   console.log(`Your name is: ${line}`);
-  rl.close();
+  if (isTTY) {
+    process.exit(0);
+  }
 });
 
-rl.on('close', () => {
+process.stdin.on('end', () => {
   console.log('This important software is now closing');
 });
 
-rl.on('SIGINT', () => {
+process.on('SIGINT', () => {
   console.log('This important software is now closing');
   process.exit(0);
 });
